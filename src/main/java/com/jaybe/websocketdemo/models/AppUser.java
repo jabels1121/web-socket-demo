@@ -34,7 +34,7 @@ public class AppUser {
 
     @OneToMany(mappedBy = "appUser",
             cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY)
+            fetch = FetchType.EAGER)
     private Set<Block> blocks;
 
     public AppUser addRole(Role role) {

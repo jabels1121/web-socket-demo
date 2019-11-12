@@ -2,7 +2,7 @@ package com.jaybe.websocketdemo.models;
 
 public enum State {
 
-    ARM(1), DISARM(2);
+    ON(1), OFF(2);
 
     private final Integer stateCode;
 

@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jaybe.websocketdemo.models.TestMessage;
 import com.jaybe.websocketdemo.repositories.WebSocketSessionsStore;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.stereotype.Component;
+import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
@@ -30,6 +32,13 @@ public class PojoMapperHandler extends TextWebSocketHandler {
     @Override
     public void afterConnectionEstablished(WebSocketSession session) {
         webSocketSessionsStore.addWebSocketSession(Objects.requireNonNull(session.getPrincipal()).getName(), session);
+    }
+
+    @Override
+    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        var principal = (UsernamePasswordAuthenticationToken) Objects.requireNonNull(session.getPrincipal());
+
+        webSocketSessionsStore.removeWebSocketSession(principal.getName(), session);
     }
 
     @Override

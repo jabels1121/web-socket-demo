@@ -2,6 +2,9 @@ package com.jaybe.websocketdemo.configurations;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.event.ApplicationEventMulticaster;
+import org.springframework.context.event.SimpleApplicationEventMulticaster;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
 import org.springframework.core.task.TaskExecutor;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.annotation.EnableAsync;
@@ -36,5 +39,14 @@ public class ScheduledConfig {
         result.setThreadNamePrefix(TASK_SCHEDULER_NAME_PREFIX);
         return result;
     }
+/*
+    @Bean(name = "applicationEventMulticaster")
+    public ApplicationEventMulticaster simpleApplicationEventMulticaster() {
+        SimpleApplicationEventMulticaster eventMulticaster =
+                new SimpleApplicationEventMulticaster();
+
+        eventMulticaster.setTaskExecutor(taskExecutor());
+        return eventMulticaster;
+    }*/
 
 }

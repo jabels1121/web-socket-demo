@@ -39,8 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(ALLOWABLE_PATHS).permitAll()
                 .antMatchers("/ws-demo").permitAll()
                 .anyRequest().authenticated()
-        .and()
-        .httpBasic();
+                .and()
+                .httpBasic();
 
         // for h2-console
         http.csrf().disable();
@@ -49,6 +49,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
-       return new BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 }

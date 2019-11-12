@@ -11,4 +11,5 @@ public interface BlockRepository extends JpaRepository<Block, Long> {
 
     Optional<Block> findBlockByAppUser_Id(Long appUserId);
 
+    Optional<Block> findByBlockNumber(String blockNumber);
 }

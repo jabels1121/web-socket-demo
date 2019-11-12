@@ -2,6 +2,8 @@ package com.jaybe.websocketdemo.services;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.jaybe.websocketdemo.repositories.WebSocketSessionsStore;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -9,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.socket.TextMessage;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 @Service
@@ -40,15 +44,17 @@ public class WebSocketSenderService implements WebSocketSender {
     }
 
     @Override
-    public void broadCastByUserName(String userName, Object payload) {
+    public void broadCastByUserName(String userName, Object payload, Class payloadType) {
         Objects.requireNonNull(userName);
         Objects.requireNonNull(payload);
+        Objects.requireNonNull(payloadType);
+        var messageBody = payloadType.cast(payload);
 
         webSocketSessionsStore.getWebSocketSessions(userName)
                 .ifPresent(webSocketSessions -> {
                     webSocketSessions.forEach(webSocketSession -> {
                         try {
-                            webSocketSession.sendMessage(new TextMessage(mapper.writeValueAsString(payload)));
+                            webSocketSession.sendMessage(new TextMessage(mapper.writeValueAsString(messageBody)));
                         } catch (IOException e) {
                             log.error(e.getMessage(), e);
                         }

@@ -23,9 +23,9 @@ public class MyHttpSessionHandshakeInterceptor extends HttpSessionHandshakeInter
         var principal = (UsernamePasswordAuthenticationToken) request.getPrincipal();
         if (principal == null) return false;
 
-        if (!checkPrincipalAuthorities(principal)) {
+        /*if (!checkPrincipalAuthorities(principal)) {
             throw new AccessDeniedException("Not authorize");
-        }
+        }*/
 
         return super.beforeHandshake(request, response, wsHandler, attributes) && principal.isAuthenticated();
     }
