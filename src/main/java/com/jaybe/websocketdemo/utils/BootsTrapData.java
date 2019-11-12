@@ -73,7 +73,7 @@ public class BootsTrapData {
         block_3.setAppUser(wsUser);
 
         appUserRepository.saveAll(Arrays.asList(adminUser, user, wsUser));
-        blockRepository.saveAll(Arrays.asList(block_1, block_2, block_3));
+        //blockRepository.saveAll(Arrays.asList(block_1, block_2, block_3));
 
     }
 

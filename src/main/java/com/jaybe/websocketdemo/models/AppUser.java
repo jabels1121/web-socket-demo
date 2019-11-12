@@ -11,8 +11,8 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
-@ToString
+@EqualsAndHashCode(callSuper = false, exclude = {"blocks"})
+@ToString(exclude = {"blocks"})
 public class AppUser {
 
     @Id

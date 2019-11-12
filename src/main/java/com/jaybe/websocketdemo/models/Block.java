@@ -16,11 +16,7 @@ import java.time.ZoneOffset;
 public class Block {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ID")
-    private long id;
-
-    @Column(name = "BLOCK_NUMBER")
+    @Column(name = "BLOCK_NUMBER", unique = true, nullable = false)
     private String blockNumber;
 
     @Column(name = "BLOCK_STATE")
@@ -30,7 +26,7 @@ public class Block {
     private LocalDateTime lastUpdated;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = false)
+    @JoinColumn(name = "USER_ID")
     private AppUser appUser;
 
     public static Block createNewBlock(String blockNumber) {

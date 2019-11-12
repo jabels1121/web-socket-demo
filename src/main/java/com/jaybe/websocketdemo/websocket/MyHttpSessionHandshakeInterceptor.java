@@ -22,16 +22,8 @@ public class MyHttpSessionHandshakeInterceptor extends HttpSessionHandshakeInter
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response, WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
         var principal = (UsernamePasswordAuthenticationToken) request.getPrincipal();
         if (principal == null) return false;
-        var res = checkPrincipalAuthorities(principal);
 
-        // For prevent ddos attack
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            log.error(e.getMessage(), e);
-        }
-
-        if (!res) {
+        if (!checkPrincipalAuthorities(principal)) {
             throw new AccessDeniedException("Not authorize");
         }
 
