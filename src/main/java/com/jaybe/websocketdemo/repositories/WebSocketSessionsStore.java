@@ -21,12 +21,12 @@ public class WebSocketSessionsStore {
     }
 
     public Optional<List<WebSocketSession>> getWebSocketSessions(String key) {
-        log.info("Get wsSession from store by key - {}", key);
+        log.info("Get wsSession from store by key={}", key);
         return Optional.ofNullable(this.webSocketSessionCache.get(key));
     }
 
     public void addWebSocketSession(String key, WebSocketSession webSocketSession) {
-        log.info("Add wsSession to store - {}", webSocketSession);
+        log.info("Add wsSession={} to store for key={}", webSocketSession, key);
         if (null != this.webSocketSessionCache.get(key)) {
             this.webSocketSessionCache.get(key).add(webSocketSession);
         } else {
@@ -36,6 +36,9 @@ public class WebSocketSessionsStore {
 
     public void removeWebSocketSession(String key, WebSocketSession socketSession) {
         log.info("Remove wsSession from store by key - {}", key);
-        this.webSocketSessionCache.get(key).remove(socketSession);
+        if (this.webSocketSessionCache.containsKey(key)) {
+            var webSocketSessions = this.webSocketSessionCache.get(key);
+            webSocketSessions.removeIf(webSocketSession -> webSocketSession.equals(socketSession));
+        }
     }
 }

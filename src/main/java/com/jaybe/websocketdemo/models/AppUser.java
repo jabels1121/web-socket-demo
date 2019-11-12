@@ -11,7 +11,7 @@ import java.util.Set;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = false)
 @ToString
 public class AppUser {
 
@@ -32,11 +32,23 @@ public class AppUser {
                     inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))
     private Set<Role> authorities;
 
+    @OneToMany(mappedBy = "appUser",
+            cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY)
+    private Set<Block> blocks;
+
     public AppUser addRole(Role role) {
         if (null == this.authorities) {
             authorities = new HashSet<>();
         }
         authorities.add(role);
+        return this;
+    }
+    public AppUser addBlock(Block block) {
+        if (null == this.blocks) {
+            blocks = new HashSet<>();
+        }
+        this.blocks.add(block);
         return this;
     }
 }

@@ -1,4 +1,4 @@
-package com.jaybe.websocketdemo.aop.sockets;
+package com.jaybe.websocketdemo.websocket;
 
 import com.jaybe.websocketdemo.repositories.WebSocketSessionsStore;
 import lombok.extern.slf4j.Slf4j;
@@ -40,11 +40,13 @@ public class MyCustomHandler extends TextWebSocketHandler {
                 .ifPresent(webSocketSessions -> {
                     webSocketSessions.forEach(webSocketSession -> {
                         try {
-                            webSocketSession.sendMessage(message);
+                            webSocketSession.sendMessage(new TextMessage("Hello from server"));
                         } catch (IOException e) {
                             log.error(e.getMessage(), e);
                         }
                     });
                 });
     }
+
+
 }

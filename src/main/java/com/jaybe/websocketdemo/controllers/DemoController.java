@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class DemoController {
 
-
     @GetMapping(path = "/hello")
     public String greetings() {
         return "Hello!";

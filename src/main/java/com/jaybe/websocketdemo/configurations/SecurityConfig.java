@@ -34,13 +34,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
-                .headers().frameOptions().disable().and().httpBasic()
-                .and()
+        http
                 .authorizeRequests()
                 .antMatchers(ALLOWABLE_PATHS).permitAll()
                 .antMatchers("/ws-demo").permitAll()
-                .anyRequest().authenticated();
+                .anyRequest().authenticated()
+        .and()
+        .httpBasic();
     }
 
     @Bean
