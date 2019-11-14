@@ -39,14 +39,4 @@ public class ScheduledConfig {
         result.setThreadNamePrefix(TASK_SCHEDULER_NAME_PREFIX);
         return result;
     }
-/*
-    @Bean(name = "applicationEventMulticaster")
-    public ApplicationEventMulticaster simpleApplicationEventMulticaster() {
-        SimpleApplicationEventMulticaster eventMulticaster =
-                new SimpleApplicationEventMulticaster();
-
-        eventMulticaster.setTaskExecutor(taskExecutor());
-        return eventMulticaster;
-    }*/
-
 }

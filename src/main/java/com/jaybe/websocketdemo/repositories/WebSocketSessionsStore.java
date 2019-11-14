@@ -41,4 +41,8 @@ public class WebSocketSessionsStore {
             webSocketSessions.removeIf(webSocketSession -> webSocketSession.equals(socketSession));
         }
     }
+
+    public ConcurrentHashMap<String, List<WebSocketSession>> getCache() {
+        return this.webSocketSessionCache;
+    }
 }
